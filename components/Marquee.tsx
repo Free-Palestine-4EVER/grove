@@ -6,8 +6,20 @@ import { marqueeItems } from "@/lib/data";
 export default function Marquee() {
   const { lang } = useT();
   const items = [...marqueeItems, ...marqueeItems];
+  const edgeFade =
+    "linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%)";
   return (
-    <div className="marquee" style={{ background: "var(--grove)", color: "var(--paper)", paddingBlock: "1.05rem", borderBlock: "1px solid rgba(0,0,0,0.15)" }}>
+    <div
+      className="marquee marquee--grove"
+      style={{
+        background: "var(--grove)",
+        color: "var(--paper)",
+        paddingBlock: "1.05rem",
+        borderBlock: "1px solid rgba(0,0,0,0.15)",
+        WebkitMaskImage: edgeFade,
+        maskImage: edgeFade,
+      }}
+    >
       <div className="marquee__track" aria-hidden>
         {items.map((it, i) => (
           <span key={i} style={{ display: "inline-flex", alignItems: "center" }}>
@@ -18,6 +30,9 @@ export default function Marquee() {
           </span>
         ))}
       </div>
+      <style>{`
+        .marquee--grove:hover .marquee__track { animation-play-state: paused; }
+      `}</style>
     </div>
   );
 }

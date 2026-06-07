@@ -13,7 +13,7 @@ export const collections: Collection[] = [
     id: "bedrooms",
     name: { en: "Bedrooms", ar: "غرف النوم" },
     count: { en: "42 pieces", ar: "٤٢ قطعة" },
-    img: "/grove/p07.jpg",
+    img: "/grove/c-bedrooms.jpg",
     span: "tall",
   },
   {
@@ -139,6 +139,103 @@ export const stats: { value: string; label: "stat_homes" | "stat_followers" | "s
   { value: "103K", label: "stat_followers" },
   { value: "4.9★", label: "stat_rating" },
   { value: "100%", label: "stat_delivery" },
+];
+
+export const processSteps: { n: string; title: Bi; body: Bi }[] = [
+  {
+    n: "01",
+    title: { en: "Consultation", ar: "الاستشارة" },
+    body: {
+      en: "We visit, measure and listen — understanding how you live before we propose a single piece.",
+      ar: "نزورك، نقيس، ونستمع — نفهم أسلوب حياتك قبل أن نقترح أي قطعة.",
+    },
+  },
+  {
+    n: "02",
+    title: { en: "Design & 3D", ar: "التصميم والـ ٣D" },
+    body: {
+      en: "Our studio returns a full concept — 3D visuals, materials and a fixed, transparent quote.",
+      ar: "يعيد لك الاستوديو تصميمًا كاملًا — مشاهد ثلاثية الأبعاد، مواد، وعرض سعر ثابت وواضح.",
+    },
+  },
+  {
+    n: "03",
+    title: { en: "Crafted to order", ar: "يُصنع حسب الطلب" },
+    body: {
+      en: "Each piece is built and finished to order, quality-checked by hand at every stage.",
+      ar: "تُصنع كل قطعة وتُشطّب حسب الطلب، مع فحص يدوي للجودة في كل مرحلة.",
+    },
+  },
+  {
+    n: "04",
+    title: { en: "Delivered & styled", ar: "توصيل وتنسيق" },
+    body: {
+      en: "White-glove delivery — we carry, place and style every piece, then clear everything away.",
+      ar: "توصيل بعناية فائقة — نحمل ونضع وننسّق كل قطعة، ثم نرتّب ونغادر.",
+    },
+  },
+];
+
+export const materials: { name: Bi; note: Bi; img: string }[] = [
+  {
+    name: { en: "Solid Oak & Walnut", ar: "بلوط وجوز صلب" },
+    note: { en: "Kiln-dried hardwood frames, built to outlast trends.", ar: "هياكل من الخشب الصلب المجفّف، تدوم أطول من الموضة." },
+    img: "/grove/p02.jpg",
+  },
+  {
+    name: { en: "Performance Velvet & Linen", ar: "مخمل وكتان عملي" },
+    note: { en: "Soft to the touch, engineered to live with daily life.", ar: "ناعم الملمس، مصمّم ليصمد أمام الحياة اليومية." },
+    img: "/grove/p09.jpg",
+  },
+  {
+    name: { en: "Hand-finished Brass", ar: "نحاس مشغول يدويًا" },
+    note: { en: "Warm metal details, patinated and sealed by hand.", ar: "تفاصيل معدنية دافئة، مصقولة ومحميّة باليد." },
+    img: "/grove/p10.jpg",
+  },
+];
+
+export const financingPoints: Bi[] = [
+  { en: "Up to 36 months", ar: "حتى ٣٦ شهرًا" },
+  { en: "Same cash price", ar: "بنفس سعر الكاش" },
+  { en: "Fast in-showroom approval", ar: "موافقة سريعة في المعرض" },
+];
+
+export const faqs: { q: Bi; a: Bi }[] = [
+  {
+    q: { en: "Where do you deliver, and how long does it take?", ar: "أين توصّلون، وكم يستغرق ذلك؟" },
+    a: {
+      en: "We deliver across Jordan with our own white-glove team. In-stock pieces arrive within a few days; made-to-order pieces follow the lead time on your quote.",
+      ar: "نوصّل في كل الأردن عبر فريقنا المختص. القطع المتوفرة تصل خلال أيام؛ أما المصنوعة حسب الطلب فتتبع المدة المذكورة في عرض السعر.",
+    },
+  },
+  {
+    q: { en: "Can pieces be customised?", ar: "هل يمكن تخصيص القطع؟" },
+    a: {
+      en: "Yes. Most pieces can be made in your choice of fabric, finish and — for many — dimensions. Our design studio will guide the options.",
+      ar: "نعم. معظم القطع تُصنع بالقماش واللون الذي تختاره، ولكثير منها أبعاد قابلة للتعديل. يرشدك استوديو التصميم للخيارات.",
+    },
+  },
+  {
+    q: { en: "Do you design whole homes?", ar: "هل تصمّمون المنازل بالكامل؟" },
+    a: {
+      en: "We do — from a single room to a turn-key villa, including built-in closets and full interiors, from concept through to installation.",
+      ar: "بالتأكيد — من غرفة واحدة إلى فيلا جاهزة للسكن، بما في ذلك الخزائن الحائطية والتصاميم الداخلية الكاملة، من الفكرة حتى التركيب.",
+    },
+  },
+  {
+    q: { en: "What about warranty and after-care?", ar: "ماذا عن الضمان والعناية بعد البيع؟" },
+    a: {
+      en: "Every piece is covered against manufacturing defects, and we offer professional upholstery cleaning and after-sale care to keep it looking new.",
+      ar: "كل قطعة مضمونة ضد عيوب التصنيع، ونوفّر تنظيفًا احترافيًا للمفروشات وعناية بعد البيع للحفاظ على رونقها.",
+    },
+  },
+  {
+    q: { en: "How do the installments work?", ar: "كيف يعمل التقسيط؟" },
+    a: {
+      en: "Buy at the cash price and spread it over up to three years through Safwa Islamic Bank, with fast approval right in the showroom.",
+      ar: "اشترِ بسعر الكاش وقسّطه حتى ثلاث سنوات عبر بنك صفوة الإسلامي، مع موافقة سريعة داخل المعرض.",
+    },
+  },
 ];
 
 export const services: { icon: string; title: Bi; body: Bi }[] = [

@@ -40,7 +40,19 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 export const STR = {
   nav_collections: { en: "Collections", ar: "المجموعات" },
   nav_tour: { en: "Virtual Showroom", ar: "الجولة الافتراضية" },
+  nav_shop: { en: "Shop", ar: "تسوّق" },
+  nav_showroom: { en: "AR Showroom", ar: "معرض الواقع المعزّز" },
   nav_design: { en: "Design Studio", ar: "استوديو التصميم" },
+
+  shop_page_eyebrow: { en: "The Catalogue", ar: "الكتالوج" },
+  shop_page_title: { en: "Shop the collection", ar: "تسوّق المجموعة" },
+  shop_page_sub: {
+    en: "Every piece, made to order and finished by hand. Tap any piece to place it in your room in AR.",
+    ar: "كل قطعة، تُصنع حسب الطلب وتُشطّب يدويًا. انقر أي قطعة لتضعها في غرفتك بالواقع المعزّز.",
+  },
+  shop_all: { en: "All", ar: "الكل" },
+  shop_view_ar: { en: "View in AR", ar: "اعرض بالواقع المعزّز" },
+  shop_pieces: { en: "pieces", ar: "قطعة" },
   nav_visit: { en: "Visit Us", ar: "زورونا" },
   nav_book: { en: "Book a Visit", ar: "احجز زيارة" },
 
@@ -49,8 +61,8 @@ export const STR = {
   hero_l2: { en: "beautifully", ar: "بكل" },
   hero_l3: { en: "furnished.", ar: "تفاصيله." },
   hero_sub: {
-    en: "A premium supplier for home furnishing — every room, every detail, under one roof.",
-    ar: "المورّد الأول لأثاث المنزل — كل غرفة، كل تفصيل، تحت سقف واحد.",
+    en: "Your home for furniture & beyond — every room, every detail, designed and delivered under one roof.",
+    ar: "وجهتك للأثاث وأكثر — كل غرفة، كل تفصيل، نصمّمه ونوصّله تحت سقف واحد.",
   },
   hero_cta1: { en: "Explore the Collection", ar: "اكتشف المجموعة" },
   hero_cta2: { en: "Enter the Showroom", ar: "ادخل المعرض" },
@@ -71,8 +83,8 @@ export const STR = {
 
   tour_eyebrow: { en: "Virtual Showroom", ar: "المعرض الافتراضي" },
   tour_title: { en: "Walk through, from anywhere", ar: "تجوّل من أي مكان" },
-  tour_sub: { en: "Drag to look around. Tap a point to reveal the piece.", ar: "اسحب للنظر حولك. انقر على نقطة لعرض القطعة." },
-  tour_enter: { en: "Drag to explore", ar: "اسحب للاستكشاف" },
+  tour_sub: { en: "A real 3D walkthrough — move room to room and look anywhere, right from your screen.", ar: "جولة ثلاثية الأبعاد حقيقية — تنقّل بين الغرف وانظر في كل اتجاه، من شاشتك مباشرة." },
+  tour_enter: { en: "Click to move · drag to look", ar: "انقر للتنقّل · اسحب للنظر" },
 
   ar_eyebrow: { en: "3D · Augmented Reality", ar: "ثلاثي الأبعاد · واقع معزّز" },
   ar_title: { en: "See it in your own room", ar: "شاهدها في غرفتك" },
@@ -107,7 +119,7 @@ export const STR = {
   visit_call: { en: "Call the Studio", ar: "اتصل بالاستوديو" },
 
   footer_tag: { en: "Furniture & Beyond", ar: "أثاث وأكثر" },
-  footer_rights: { en: "Premium Supplier for Home Furnishing", ar: "المورّد الأول لأثاث المنزل" },
+  footer_rights: { en: "Designing & furnishing Jordan's homes — furniture & beyond.", ar: "نصمّم ونؤثّث بيوت الأردن — أثاث وأكثر." },
   footer_demo: { en: "Concept preview — built for The Grove", ar: "نسخة تجريبية — صُمّمت لذا غروف" },
 
   proof_eyebrow: { en: "Loved across Amman", ar: "محبوب في كل عمّان" },
@@ -117,6 +129,39 @@ export const STR = {
   stat_followers: { en: "community", ar: "متابع" },
   stat_rating: { en: "showroom rating", ar: "تقييم المعرض" },
   stat_delivery: { en: "delivery across Jordan", ar: "توصيل في كل الأردن" },
+
+  process_eyebrow: { en: "How We Work", ar: "كيف نعمل" },
+  process_title: { en: "Four steps to a finished home", ar: "أربع خطوات لمنزل مكتمل" },
+  process_sub: {
+    en: "One team, from the first measurement to the last cushion — so nothing falls between the cracks.",
+    ar: "فريق واحد، من أول قياس حتى آخر وسادة — حتى لا يضيع أي تفصيل.",
+  },
+
+  craft_eyebrow: { en: "Craftsmanship", ar: "الحرفية" },
+  craft_title: { en: "Made to be lived with", ar: "صُنع ليُعاش معه" },
+  craft_sub: {
+    en: "We choose materials that age beautifully — honest woods, durable weaves and warm metals, finished by hand.",
+    ar: "نختار موادًا تزداد جمالًا مع الوقت — أخشاب أصيلة، أقمشة متينة، ومعادن دافئة، مشغولة باليد.",
+  },
+
+  fin_eyebrow: { en: "Pay Your Way", ar: "ادفع بطريقتك" },
+  fin_title: { en: "Cash price. Up to 3 years to pay.", ar: "بسعر الكاش. وتقسيط حتى ٣ سنوات." },
+  fin_body: {
+    en: "Furnish now and spread the cost with comfortable installments through Safwa Islamic Bank — at the same cash price, with no hidden cost.",
+    ar: "أثّث الآن وقسّط التكلفة بمرونة عبر بنك صفوة الإسلامي — بنفس سعر الكاش، وبدون أي تكلفة خفية.",
+  },
+
+  faq_eyebrow: { en: "Good to Know", ar: "أسئلة شائعة" },
+  faq_title: { en: "Questions, answered", ar: "إجابات لأسئلتك" },
+
+  news_title: { en: "Stay in the grove", ar: "ابقَ على تواصل" },
+  news_body: {
+    en: "New arrivals, design notes and showroom events — a few times a year, never more.",
+    ar: "وصولات جديدة، ملاحظات تصميم، ودعوات للمعرض — بضع مرات في السنة، لا أكثر.",
+  },
+  news_placeholder: { en: "Email address", ar: "البريد الإلكتروني" },
+  news_cta: { en: "Subscribe", ar: "اشترك" },
+  news_thanks: { en: "Welcome — you're on the list.", ar: "أهلًا بك — أصبحت على القائمة." },
 
   consult: { en: "Book a Design Consultation", ar: "احجز استشارة تصميم" },
   wa_label: { en: "Chat on WhatsApp", ar: "تواصل عبر واتساب" },

@@ -4,24 +4,24 @@ import { useEffect, useState } from "react";
 import Logo from "./Logo";
 import { useT } from "@/lib/i18n";
 
-const LINKS: { id: string; key: "nav_collections" | "nav_tour" | "nav_design" | "nav_visit" }[] = [
-  { id: "#collections", key: "nav_collections" },
-  { id: "#tour", key: "nav_tour" },
-  { id: "#design", key: "nav_design" },
-  { id: "#visit", key: "nav_visit" },
+const LINKS: { id: string; key: "nav_shop" | "nav_showroom" | "nav_visit" }[] = [
+  { id: "/shop", key: "nav_shop" },
+  { id: "/showroom", key: "nav_showroom" },
+  { id: "/visit", key: "nav_visit" },
 ];
 
-export default function Nav() {
+export default function Nav({ pinnedSolid = false }: { pinnedSolid?: boolean }) {
   const { t, lang, toggle } = useT();
-  const [solid, setSolid] = useState(false);
+  const [solid, setSolid] = useState(pinnedSolid);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    if (pinnedSolid) { setSolid(true); return; }
     const onScroll = () => setSolid(window.scrollY > window.innerHeight * 0.78);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [pinnedSolid]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -42,7 +42,7 @@ export default function Nav() {
       }}
     >
       <nav className="container" style={{ position: "relative", zIndex: 96, display: "flex", alignItems: "center", justifyContent: "space-between", height: 78, color: fg }}>
-        <a href="#top" aria-label="The Grove home" onClick={() => setOpen(false)}>
+        <a href="/" aria-label="The Grove home" onClick={() => setOpen(false)}>
           <Logo tone={open ? "paper" : tone} size={0.92} />
         </a>
 
@@ -70,7 +70,7 @@ export default function Nav() {
             {lang === "en" ? "العربية" : "EN"}
           </button>
 
-          <a href="#visit" className="btn btn-ghost nav-book" style={{ borderColor: solid ? "var(--line)" : "rgba(251,247,240,0.5)", color: fg }}>
+          <a href="/visit" className="btn btn-ghost nav-book" style={{ borderColor: solid ? "var(--line)" : "rgba(251,247,240,0.5)", color: fg }}>
             {t("nav_book")}
           </a>
 
@@ -107,7 +107,7 @@ export default function Nav() {
           ))}
         </ul>
         <div style={{ marginTop: "2.5rem", display: "flex", gap: "0.8rem", flexWrap: "wrap" }}>
-          <a href="#visit" onClick={() => setOpen(false)} className="btn" style={{ background: "var(--paper)", color: "var(--ink)" }}>{t("nav_book")} <span className="arrow">→</span></a>
+          <a href="/visit" onClick={() => setOpen(false)} className="btn" style={{ background: "var(--paper)", color: "var(--ink)" }}>{t("nav_book")} <span className="arrow">→</span></a>
           <button onClick={toggle} className="btn" style={{ border: "1px solid rgba(251,247,240,0.4)", color: "var(--paper)", fontFamily: lang === "en" ? "var(--f-ar)" : "var(--font-sans)" }}>
             {lang === "en" ? "العربية" : "English"}
           </button>

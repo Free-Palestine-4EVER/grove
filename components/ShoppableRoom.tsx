@@ -29,14 +29,16 @@ export default function ShoppableRoom() {
               const open = active === h.id;
               return (
                 <div key={h.id} className="hs" style={{ position: "absolute", left: `${h.x * 100}%`, top: `${h.y * 100}%`, transform: "translate(-50%,-50%)", zIndex: open ? 5 : 2 }}
-                  onMouseEnter={() => setActive(h.id)} onClick={() => setActive(h.id)} data-cursor="hover">
-                  <button aria-label={h.name[lang]} style={{ position: "relative", width: 26, height: 26, borderRadius: "50%", border: "none", cursor: "none", background: open ? "var(--brass-2)" : "rgba(251,247,240,0.9)", display: "grid", placeItems: "center" }}>
+                  onMouseEnter={() => setActive(h.id)} onClick={() => setActive(h.id)}
+                  onTouchStart={() => setActive(h.id)} data-cursor="hover">
+                  <button aria-label={`${h.name[lang]} — ${h.price}`} aria-pressed={open}
+                    style={{ position: "relative", width: 26, height: 26, borderRadius: "50%", border: "none", cursor: "none", background: open ? "var(--brass-2)" : "rgba(251,247,240,0.9)", display: "grid", placeItems: "center", transition: "background .35s var(--ease), transform .35s var(--ease)", transform: open ? "scale(1.12)" : "scale(1)" }}>
                     <span style={{ position: "absolute", inset: 0, borderRadius: "50%", border: "1.5px solid rgba(251,247,240,0.8)", animation: "pulse-ring 2.4s var(--ease) infinite" }} />
-                    <span style={{ width: 7, height: 7, borderRadius: "50%", background: open ? "var(--ink)" : "var(--ink)" }} />
+                    <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--ink)" }} />
                   </button>
 
                   <div style={{
-                    position: "absolute", bottom: "calc(100% + 12px)", left: "50%", transform: `translateX(-50%) translateY(${open ? 0 : 6}px)`,
+                    position: "absolute", bottom: "calc(100% + 12px)", left: "50%", transform: `translateX(-50%) translateY(${open ? 0 : 6}px) scale(${open ? 1 : 0.95})`, transformOrigin: "bottom center",
                     minWidth: 190, background: "rgba(251,247,240,0.97)", color: "var(--ink)", borderRadius: 4, padding: "0.85rem 1rem",
                     opacity: open ? 1 : 0, pointerEvents: open ? "auto" : "none", transition: "all .4s var(--ease)", boxShadow: "0 20px 40px -16px rgba(0,0,0,0.5)",
                   }}>

@@ -1,8 +1,23 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useT } from "@/lib/i18n";
 import { services } from "@/lib/data";
-import Reveal from "./Reveal";
+import {
+  Rise,
+  RevealLines,
+  Stagger,
+  StaggerItem,
+  Magnetic,
+} from "@/components/motion";
+
+// five photos that crossfade every 1.5s
+const SVC_PHOTOS = [
+  "/grove/p06.jpg",
+  "/grove/p03.jpg",
+  "/grove/p09.jpg",
+  "/grove/p11.jpg",
+];
 
 const Icon = ({ name }: { name: string }) => {
   const common = { width: 30, height: 30, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
@@ -18,30 +33,249 @@ const Icon = ({ name }: { name: string }) => {
   }
 };
 
+// split the title into balanced display lines for the masked line-reveal
+function titleLines(text: string): string[] {
+  const words = text.split(" ");
+  if (words.length < 2) return [text];
+  const cut = Math.ceil(words.length / 2);
+  return [words.slice(0, cut).join(" "), words.slice(cut).join(" ")];
+}
+
 export default function Services() {
   const { t, lang } = useT();
+  const points = services.filter((s) => s.icon !== "installment");
+
+  // cycle through the five photos every 1.5s
+  const [shot, setShot] = useState(0);
+  useEffect(() => {
+    const id = setInterval(
+      () => setShot((i) => (i + 1) % SVC_PHOTOS.length),
+      1500
+    );
+    return () => clearInterval(id);
+  }, []);
+
   return (
-    <section className="section" style={{ background: "var(--grove)", color: "var(--paper)" }}>
-      <div className="container">
-        <div style={{ maxWidth: 620, marginBottom: "3.5rem" }}>
-          <Reveal><span className="eyebrow" style={{ color: "var(--brass-2)" }}>{t("services_eyebrow")}</span></Reveal>
-          <Reveal delay={80}>
-            <h2 className="display" style={{ fontSize: "clamp(2.2rem, 5vw, 4.2rem)", margin: "1rem 0 0", color: "var(--paper)" }}>{t("services_title")}</h2>
-          </Reveal>
+    <section className="svc" lang={lang}>
+      <div className="container svc__grid">
+        {/* MEDIA — real photography is the hero */}
+        <div className="svc__media">
+          <div
+            className="svc__frame svc__slideshow"
+            style={{ aspectRatio: "4 / 5", borderRadius: "var(--r, 3px)" }}
+          >
+            {SVC_PHOTOS.map((src, i) => (
+              <img
+                key={src}
+                src={src}
+                alt=""
+                className="svc__slide"
+                aria-hidden={i !== shot}
+                style={{ opacity: i === shot ? 1 : 0 }}
+              />
+            ))}
+          </div>
+          <span className="svc__media-cap" aria-hidden>
+            {lang === "en" ? "Made for living" : "صُنع للعيش"}
+          </span>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))", gap: "1px", background: "rgba(251,247,240,0.16)", border: "1px solid rgba(251,247,240,0.16)" }}>
-          {services.map((s, i) => (
-            <Reveal key={i} delay={i * 80}>
-              <div style={{ background: "var(--grove)", padding: "2.4rem 1.8rem 2.6rem", height: "100%" }}>
-                <span style={{ color: "var(--brass-2)" }}><Icon name={s.icon} /></span>
-                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 420, fontSize: "1.5rem", margin: "1.3rem 0 0.7rem" }}>{s.title[lang]}</h3>
-                <p style={{ color: "rgba(251,247,240,0.74)", fontSize: "0.92rem", lineHeight: 1.65, margin: 0 }}>{s.body[lang]}</p>
-              </div>
-            </Reveal>
-          ))}
+        {/* EDITORIAL — eyebrow, title, then the elegant service list */}
+        <div className="svc__body">
+          <div className="svc__kick">
+            <span className="svc__rule" aria-hidden />
+            <Rise as="span" className="eyebrow svc__eyebrow">
+              {t("services_eyebrow")}
+            </Rise>
+          </div>
+
+          <RevealLines
+            lines={titleLines(t("services_title"))}
+            className="display svc__title"
+            delay={0.05}
+          />
+
+          <Stagger className="svc__list" delay={0.15}>
+            {points.map((s, i) => (
+              <StaggerItem key={i}>
+                <div className="svc__item">
+                  <span className="svc__mark" aria-hidden>
+                    <Icon name={s.icon} />
+                  </span>
+                  <div className="svc__text">
+                    <h3 className="svc__item-title">{s.title[lang]}</h3>
+                    <p className="svc__item-body">{s.body[lang]}</p>
+                  </div>
+                </div>
+              </StaggerItem>
+            ))}
+          </Stagger>
+
+          <Rise delay={0.25} className="svc__cta">
+            <Magnetic>
+              <a href="/visit" className="btn svc__btn">
+                {lang === "en" ? "Visit the showroom" : "زر المعرض"}
+                <span className="arrow" aria-hidden>↗</span>
+              </a>
+            </Magnetic>
+          </Rise>
         </div>
       </div>
+
+      <style>{`
+        .svc {
+          position: relative;
+          padding-block: clamp(5rem, 11vw, 11rem);
+          background: var(--grove);
+          color: var(--paper);
+          overflow: hidden;
+        }
+        /* warm light, never flat */
+        .svc::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background:
+            radial-gradient(60% 50% at 14% 8%, rgba(197,160,106,0.14), transparent 62%),
+            radial-gradient(120% 90% at 50% 120%, rgba(12,14,9,0.45), transparent 60%);
+        }
+        .svc__grid {
+          position: relative;
+          z-index: 1;
+          display: grid;
+          grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
+          gap: clamp(2.5rem, 6vw, 6rem);
+          align-items: center;
+        }
+
+        /* ---- media ---- */
+        .svc__media { position: relative; }
+        .svc__frame {
+          width: 100%;
+          box-shadow: 0 46px 90px -38px rgba(0,0,0,0.7);
+        }
+        .svc__slideshow {
+          position: relative;
+          overflow: hidden;
+        }
+        .svc__slide {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: opacity 0.8s var(--ease);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .svc__slide { transition: none; }
+        }
+        .svc__media-cap {
+          position: absolute;
+          z-index: 2;
+          bottom: 1.2rem;
+          inset-inline-start: 1.2rem;
+          font-size: 0.66rem;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--paper);
+          padding: 0.5em 0.9em;
+          border-radius: 100px;
+          background: rgba(16,15,13,0.42);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          border: 1px solid rgba(251,247,240,0.16);
+        }
+        html[lang="ar"] .svc__media-cap { letter-spacing: 0; }
+
+        /* ---- editorial ---- */
+        .svc__body { max-width: 38rem; }
+        .svc__kick { display: flex; align-items: center; gap: 1rem; }
+        .svc__rule {
+          display: block; width: 56px; height: 1px;
+          background: var(--brass-2); flex-shrink: 0;
+        }
+        .svc__eyebrow { color: var(--brass-2); display: block; }
+        .svc__title {
+          color: var(--paper);
+          font-size: clamp(2.1rem, 4.6vw, 4rem);
+          line-height: 1.05;
+          font-weight: 360;
+          margin: 1.4rem 0 0;
+          text-shadow: 0 2px 32px rgba(16,15,13,0.4);
+        }
+
+        .svc__list { margin: 2.6rem 0 0; }
+        .svc__item {
+          display: flex;
+          gap: 1.25rem;
+          align-items: flex-start;
+          padding: 1.6rem 0;
+          border-top: 1px solid rgba(251,247,240,0.16);
+        }
+        .svc__list > *:last-child .svc__item { border-bottom: 1px solid rgba(251,247,240,0.16); }
+        .svc__mark {
+          flex-shrink: 0;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 52px;
+          height: 52px;
+          border-radius: 999px;
+          color: var(--brass-2);
+          border: 1px solid rgba(197,160,106,0.32);
+          background: rgba(197,160,106,0.08);
+          transition: color 0.5s var(--ease), border-color 0.5s var(--ease), background 0.5s var(--ease);
+        }
+        .svc__item:hover .svc__mark {
+          color: var(--brass);
+          border-color: rgba(197,160,106,0.6);
+          background: rgba(197,160,106,0.14);
+        }
+        .svc__text { padding-top: 0.15rem; }
+        .svc__item-title {
+          font-family: var(--font-display);
+          font-weight: 420;
+          font-size: 1.3rem;
+          line-height: 1.2;
+          margin: 0 0 0.45rem;
+          color: var(--paper);
+        }
+        .svc__item-body {
+          margin: 0;
+          color: rgba(251,247,240,0.74);
+          font-size: 0.95rem;
+          line-height: 1.7;
+          max-width: 44ch;
+        }
+
+        .svc__cta { margin: 2.6rem 0 0; display: block; }
+        .svc__btn {
+          background: var(--paper);
+          color: var(--ink);
+          border-color: var(--paper);
+        }
+        .svc__btn:hover {
+          background: var(--brass-2);
+          border-color: var(--brass-2);
+          color: var(--ink);
+        }
+
+        /* ---- responsive: stack, image on top ---- */
+        @media (max-width: 880px) {
+          .svc__grid {
+            grid-template-columns: 1fr;
+            gap: clamp(2rem, 8vw, 3rem);
+            align-items: stretch;
+          }
+          .svc__media { order: -1; }
+          .svc__frame { aspect-ratio: 16 / 11 !important; }
+          .svc__body { max-width: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .svc__mark, .svc__item:hover .svc__mark { transition: none; }
+        }
+      `}</style>
     </section>
   );
 }

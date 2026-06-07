@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useT } from "@/lib/i18n";
 
-// Placeholder number — swap for The Grove's real WhatsApp business line.
-const PHONE = "962790000000";
+// The Grove's WhatsApp business line.
+const PHONE = "962796666375";
 
 export default function WhatsappCTA() {
   const { t } = useT();
