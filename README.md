@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Grove — Furniture & Beyond (concept site)
 
-## Getting Started
+A bilingual (English / Arabic + RTL) concept website built for **The Grove Furniture & Beyond**
+(@thegrovejo, Khilda — Amman). Same quality bar / stack as the Plexus Workshop site.
 
-First, run the development server:
+## How to open it
 
 ```bash
+cd ~/Desktop/Projects/TheGrove/grove-site
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open the URL it prints (usually **http://localhost:3000**, or 3001 if 3000 is busy).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## What's inside (the "expensive technology")
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Section | What it does |
+|---|---|
+| **Cinematic hero** | Full-screen, smooth-scroll, slow zoom, staggered headline reveal |
+| **360° Virtual Showroom** | Drag to look around a real Grove room in 3D, with clickable product hotspots (Three.js) |
+| **3D + AR product viewer** | Spin a sofa/chair in 3D; "View in your room" places it in AR on a phone (model-viewer) |
+| **Shop the Look** | Hover hotspots on a styled room to price each piece |
+| **Concept → Delivered** | Before/after slider for the design & execution service |
+| **Collections, Services, Visit, Footer** | Editorial grid, The Grove Promise, contact, bilingual everywhere |
 
-## Learn More
+Toggle **العربية / EN** in the top-right — the whole site flips to right-to-left Arabic.
 
-To learn more about Next.js, take a look at the following resources:
+## What is real vs. placeholder
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Real:** The Grove logo, their actual product/room photography (pulled from their Instagram),
+  their categories, handle (103k), location, hours, and real offerings (Safwa installments, care service).
+- **Placeholder (swap for the paid build):** product names + JOD prices, the two 3D models
+  (royalty-free stand-ins — final would 3D-scan their real pieces), the 360° room
+  (a single photo wrapped into a panorama — final would use a real 360° camera capture of their showroom),
+  the **testimonials + stats** (2,400+ homes, 4.9★, "since 2017" — sample content; replace with their real
+  reviews/numbers), and the **WhatsApp number** in `components/WhatsappCTA.tsx` (`PHONE` constant — swap for
+  The Grove's real business line).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Research-driven conversion features (added after benchmarking Minotti, Roche Bobois, Maiden Home, Aati)
 
-## Deploy on Vercel
+- Sticky **WhatsApp** button (MENA-native lead channel) + **"Book a Design Consultation"** as the primary Visit CTA.
+- **Social-proof section**: heritage "since" line, stats row, named client testimonials.
+- Quiet/editorial CTAs, 2–3 colour discipline, serif headlines, heavy whitespace — all per luxury-furniture best practice.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Stack
+Next.js 16 · React 19 · Tailwind 4 · Framer Motion · Lenis · Three.js / R3F · @google/model-viewer.
+Fonts: Fraunces (display) · Hanken Grotesk (Latin) · IBM Plex Sans Arabic.
