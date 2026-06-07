@@ -45,6 +45,10 @@ export default function DesignService() {
 
   return (
     <section id="design" className="section container">
+      <style>{`
+        .ds-compare { aspect-ratio: 16/9; }
+        @media (max-width: 640px) { .ds-compare { aspect-ratio: 3/4; } }
+      `}</style>
       <div style={{ maxWidth: 640, marginBottom: "3rem" }}>
         <Rise as="span" className="eyebrow" style={{ color: "var(--brass)", display: "block" }}>{t("design_eyebrow")}</Rise>
         <Rise delay={0.08}>
@@ -59,7 +63,8 @@ export default function DesignService() {
           onPointerMove={onMove}
           onPointerUp={onUp}
           onPointerLeave={onUp}
-          style={{ position: "relative", aspectRatio: "16/9", overflow: "hidden", borderRadius: 4, userSelect: "none", touchAction: "none", boxShadow: "0 30px 70px -40px rgba(0,0,0,0.4)" }}
+          className="ds-compare"
+          style={{ position: "relative", overflow: "hidden", borderRadius: 4, userSelect: "none", touchAction: "none", boxShadow: "0 30px 70px -40px rgba(0,0,0,0.4)" }}
         >
           {/* Delivered (full color) */}
           <img src="/grove/p06.jpg" alt={t("design_after")} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center bottom" }} draggable={false} />

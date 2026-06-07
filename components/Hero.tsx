@@ -2,10 +2,21 @@
 
 import { motion } from "framer-motion";
 import { useT } from "@/lib/i18n";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
   const { t, lang } = useT();
   const ease = [0.22, 1, 0.36, 1] as const;
+
+  // Swap to the portrait mobile clip on small screens; desktop keeps the landscape film.
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 860px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   const up = {
     hidden: { y: "108%" },
@@ -19,20 +30,21 @@ export default function Hero() {
 
   return (
     <section id="top" className="hero">
-      {/* FULL-BLEED VIDEO BACKGROUND */}
+      {/* FULL-BLEED VIDEO BACKGROUND — portrait clip on mobile, landscape on desktop */}
       <motion.video
+        key={isMobile ? "mobile" : "desktop"}
         className="hero__video"
         autoPlay
         muted
         loop
         playsInline
-        preload="none"
-        poster="/grove/p07.jpg"
+        preload={isMobile ? "auto" : "none"}
+        poster={isMobile ? "/grove/hero-mobile.jpg" : "/grove/p07.jpg"}
         initial={{ opacity: 0, scale: 1.06 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.6, ease }}
       >
-        <source src="/grove/hero.mp4" type="video/mp4" />
+        <source src={isMobile ? "/grove/hero-mobile.mp4" : "/grove/hero.mp4"} type="video/mp4" />
       </motion.video>
 
       {/* SCRIMS for legibility */}
@@ -109,10 +121,17 @@ export default function Hero() {
         .hero__scroll-line { width: 1px; height: 40px; background: linear-gradient(rgba(251,247,240,0.85), transparent); animation: bob 2.4s ease-in-out infinite; }
 
         @media (max-width: 860px) {
+          .hero { background: var(--grove) url(/grove/hero-mobile.jpg) center/cover no-repeat; min-height: 100svh; }
           .hero__scrim { background:
-              linear-gradient(0deg, rgba(16,15,13,0.85) 0%, rgba(27,25,22,0.5) 45%, rgba(27,25,22,0.35) 100%); }
-          .hero__title { font-size: clamp(2.8rem, 13vw, 4.4rem); }
+              linear-gradient(0deg, rgba(16,15,13,0.9) 0%, rgba(27,25,22,0.5) 42%, rgba(27,25,22,0.34) 100%); }
+          .hero__content { padding-block: clamp(7rem, 18vh, 9rem) clamp(4rem, 12vh, 6rem); }
+          .hero__title { font-size: clamp(2.8rem, 13vw, 4.4rem); margin-top: 1.1rem; max-width: 14ch; }
+          .hero__sub { font-size: 1.02rem; margin-top: 1.3rem; }
+          .hero__cta { margin-top: 1.8rem; gap: 0.6rem; }
+          .hero__cta .btn { flex: 1 1 auto; justify-content: center; }
+          .hero__meta { margin-top: 2rem; gap: 0.6rem; font-size: 0.66rem; }
           .hero__tag { display: none; }
+          .hero__scroll { display: none; }
         }
         @media (prefers-reduced-motion: reduce) {
           .hero__video { display: none; }

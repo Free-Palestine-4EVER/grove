@@ -138,6 +138,24 @@ html[dir="rtl"] .marquee__track { animation-direction: reverse; }
 /* ---- Kenburns ---- */
 @keyframes kenburns { 0% { transform: scale(1.08) translate(0,0); } 100% { transform: scale(1.18) translate(-1.5%, -1.5%); } }
 
+/* ---- Mobile refinements (site-wide) ---- */
+@media (max-width: 640px) {
+  html { -webkit-text-size-adjust: 100%; }
+  body { font-size: 15.5px; }
+  .section { padding-block: clamp(3.5rem, 12vw, 6rem); }
+  /* snappier, shorter reveal travel on small screens */
+  .reveal { transform: translateY(20px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+  /* full-width, comfortably tappable buttons */
+  .btn { padding: 1em 1.6em; font-size: 0.84rem; min-height: 46px; }
+  /* anchor targets clear the fixed nav */
+  [id] { scroll-margin-top: 84px; }
+}
+
+/* kill any horizontal overflow on touch devices */
+@media (max-width: 860px) {
+  html, body { max-width: 100%; overflow-x: hidden; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::after, *::before { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 }

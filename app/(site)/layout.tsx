@@ -5,6 +5,7 @@ import { I18nProvider } from "@/lib/i18n";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import WhatsappCTA from "@/components/WhatsappCTA";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const display = Fraunces({
   variable: "--f-display",
@@ -52,6 +53,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <body>
         <I18nProvider>
           <SmoothScroll />
+          <ScrollProgress />
           <Cursor />
           {children}
           <WhatsappCTA />
