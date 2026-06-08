@@ -111,8 +111,8 @@ html[dir="rtl"] .btn:hover .arrow { transform: translateX(-4px) scaleX(-1); }
 .rule { height: 1px; background: var(--line); width: 100%; }
 
 /* ---- Reveal ---- */
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity 1.1s var(--ease), transform 1.1s var(--ease); }
-.reveal.in { opacity: 1; transform: none; }
+.reveal { opacity: 0; transform: translateY(44px); filter: blur(10px); transition: opacity 1.1s var(--ease), transform 1.1s var(--ease), filter 1.1s var(--ease); }
+.reveal.in { opacity: 1; transform: none; filter: blur(0); }
 
 /* ---- Custom cursor ---- */
 @media (pointer: fine) {

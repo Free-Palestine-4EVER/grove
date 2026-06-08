@@ -33,8 +33,8 @@ const VIEWPORT = { once: true, margin: "0px 0px -12% 0px" } as const;
 export function Rise({
   children,
   delay = 0,
-  y = 26,
-  blur = false,
+  y = 44,
+  blur = true,
   as = "div",
   className,
   style,
@@ -53,10 +53,10 @@ export function Rise({
     <M
       className={className}
       style={style}
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y, filter: blur ? "blur(8px)" : "blur(0px)" }}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y, filter: blur ? "blur(10px)" : "blur(0px)" }}
       whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={VIEWPORT}
-      transition={{ duration: 1.0, ease: EASE, delay }}
+      transition={{ duration: 1.05, ease: EASE, delay }}
     >
       {children}
     </M>
@@ -108,8 +108,8 @@ export function StaggerItem({
 }) {
   const reduce = useReducedMotion();
   const item: Variants = {
-    hidden: reduce ? { opacity: 0 } : { opacity: 0, y },
-    show: { opacity: 1, y: 0, transition: { duration: 0.95, ease: EASE } },
+    hidden: reduce ? { opacity: 0 } : { opacity: 0, y, filter: "blur(8px)" },
+    show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 1.0, ease: EASE } },
   };
   return (
     <motion.div className={className} style={style} variants={item}>
